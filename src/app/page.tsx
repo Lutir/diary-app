@@ -4,13 +4,14 @@ import { useState, useEffect } from 'react';
 import LockScreen from '@/components/LockScreen';
 import DiaryDashboard from '@/components/DiaryDashboard';
 import EntryEditor from '@/components/EntryEditor';
+import EntryReader from '@/components/EntryReader';
 import { supabase } from '@/lib/supabase';
 
 export default function Home() {
   const [isUnlocked, setIsUnlocked] = useState(false);
-  const [view, setView] = useState<'dashboard' | 'editor'>('dashboard');
+  const [view, setView] = useState<'dashboard' | 'editor' | 'reader'>('dashboard');
   const [entries, setEntries] = useState<any[]>([]);
-  const [editingEntry, setEditingEntry] = useState<any>(null);
+  const [activeEntry, setActiveEntry] = useState<any>(null);
   const [error, setError] = useState('');
 
   useEffect(() => {
@@ -62,17 +63,22 @@ export default function Home() {
     }
 
     await fetchEntries();
-    setEditingEntry(null);
+    setActiveEntry(null);
     setView('dashboard');
   };
 
   const handleEdit = (entry: any) => {
-    setEditingEntry(entry);
+    setActiveEntry(entry);
     setView('editor');
   };
 
+  const handleView = (entry: any) => {
+    setActiveEntry(entry);
+    setView('reader');
+  };
+
   const handleCreateNew = () => {
-    setEditingEntry(null);
+    setActiveEntry(null);
     setView('editor');
   };
 
@@ -87,12 +93,18 @@ export default function Home() {
           entries={entries}
           onCreateNew={handleCreateNew}
           onEdit={handleEdit}
+          onView={handleView}
         />
-      ) : (
+      ) : view === 'editor' ? (
         <EntryEditor
-          initialData={editingEntry}
+          initialData={activeEntry}
           onSave={handleSaveEntry}
           onCancel={() => setView('dashboard')}
+        />
+      ) : (
+        <EntryReader
+          entry={activeEntry}
+          onBack={() => setView('dashboard')}
         />
       )}
     </main>

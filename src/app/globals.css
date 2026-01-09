@@ -1,21 +1,27 @@
 :root {
   /* Pastel Palette */
-  --bg-color: #fdfcf8; /* Warm off-white */
-  --text-color: #4a4a4a; /* Soft charcoal */
-  --primary-pastel: #b8e0d2; /* Mint */
-  --secondary-pastel: #d6cdea; /* Lavender */
-  --accent-pastel: #ffdac1; /* Peach/Blush */
-  --error-color: #ffb7b2; /* Pastel Red */
-  
+  --bg-color: #fdfcf8;
+  /* Warm off-white */
+  --text-color: #4a4a4a;
+  /* Soft charcoal */
+  --primary-pastel: #b8e0d2;
+  /* Mint */
+  --secondary-pastel: #d6cdea;
+  /* Lavender */
+  --accent-pastel: #ffdac1;
+  /* Peach/Blush */
+  --error-color: #ffb7b2;
+  /* Pastel Red */
+
   /* UI Elements */
   --card-bg: #ffffff;
   --border-color: #f0f0f0;
-  --shadow-sm: 0 2px 4px rgba(0,0,0,0.02);
-  --shadow-md: 0 4px 12px rgba(0,0,0,0.05);
-  
+  --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.02);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.05);
+
   /* Typography */
-  --font-sans: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
-  --font-serif: 'Merriweather', serif;
+  --font-sans: var(--font-dm-sans), 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-serif: var(--font-merriweather), 'Merriweather', serif;
 }
 
 [data-theme='dark'] {
@@ -23,17 +29,27 @@
   --text-color: #e0e0e0;
   --card-bg: #25262b;
   --border-color: #2c2e33;
-  --primary-pastel: #4a7a6a; /* Muted Mint */
-  --secondary-pastel: #6a5a8a; /* Muted Lavender */
-  --accent-pastel: #8a5a44; /* Muted Peach */
+  --primary-pastel: #4a7a6a;
+  /* Muted Mint */
+  --secondary-pastel: #6a5a8a;
+  /* Muted Lavender */
+  --accent-pastel: #8a5a44;
+  /* Muted Peach */
   --error-color: #cf6679;
-  --shadow-sm: 0 2px 4px rgba(0,0,0,0.2);
-  --shadow-md: 0 4px 12px rgba(0,0,0,0.4);
+  --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.2);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.4);
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 * {
@@ -56,7 +72,8 @@ button {
   font-family: inherit;
 }
 
-input, textarea {
+input,
+textarea {
   font-family: inherit;
   border: 1px solid var(--border-color);
   border-radius: 8px;
@@ -65,6 +82,7 @@ input, textarea {
   transition: border-color 0.2s;
 }
 
-input:focus, textarea:focus {
+input:focus,
+textarea:focus {
   border-color: var(--secondary-pastel);
 }

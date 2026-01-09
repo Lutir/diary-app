@@ -1,7 +1,6 @@
 'use client';
 
-import { Plus, Calendar, Edit2 } from 'lucide-react';
-import ReactMarkdown from 'react-markdown';
+import { Plus, Calendar, Edit2, Eye } from 'lucide-react';
 import ThemeToggle from './ThemeToggle';
 
 interface Entry {
@@ -15,9 +14,10 @@ interface DiaryDashboardProps {
     entries: Entry[];
     onCreateNew: () => void;
     onEdit: (entry: Entry) => void;
+    onView: (entry: Entry) => void;
 }
 
-export default function DiaryDashboard({ entries, onCreateNew, onEdit }: DiaryDashboardProps) {
+export default function DiaryDashboard({ entries, onCreateNew, onEdit, onView }: DiaryDashboardProps) {
     return (
         <div style={{
             maxWidth: '800px',
@@ -102,27 +102,29 @@ export default function DiaryDashboard({ entries, onCreateNew, onEdit }: DiaryDa
                                     })}
                                 </div>
 
-                                <button
-                                    onClick={(e) => {
-                                        e.stopPropagation();
-                                        onEdit(entry);
-                                    }}
-                                    style={{
-                                        background: 'none',
-                                        border: 'none',
-                                        color: 'var(--text-color)',
-                                        opacity: 0.5,
-                                        cursor: 'pointer',
-                                        padding: '0.5rem'
-                                    }}
-                                    title="Edit Entry"
-                                >
-                                    <Edit2 size={16} />
-                                </button>
+                                <div style={{ display: 'flex', gap: '0.5rem' }}>
+                                    <button
+                                        onClick={(e) => {
+                                            e.stopPropagation();
+                                            onEdit(entry);
+                                        }}
+                                        style={{
+                                            background: 'none',
+                                            border: 'none',
+                                            color: 'var(--text-color)',
+                                            opacity: 0.5,
+                                            cursor: 'pointer',
+                                            padding: '0.5rem'
+                                        }}
+                                        title="Edit Entry"
+                                    >
+                                        <Edit2 size={16} />
+                                    </button>
+                                </div>
                             </div>
 
                             <h2 style={{
-                                fontSize: '1.8rem',
+                                fontSize: '1.6rem',
                                 marginBottom: '1rem',
                                 color: 'var(--text-color)',
                                 fontFamily: 'var(--font-sans)',
@@ -131,30 +133,43 @@ export default function DiaryDashboard({ entries, onCreateNew, onEdit }: DiaryDa
                                 {entry.title || 'Untitled Entry'}
                             </h2>
 
-                            <div style={{
+                            <p style={{
                                 color: 'var(--text-color)',
-                                lineHeight: '1.8',
+                                lineHeight: '1.6',
                                 fontFamily: 'var(--font-serif)',
-                                opacity: 0.9
-                            }} className="markdown-content">
-                                <ReactMarkdown
-                                    components={{
-                                        img: ({ node, ...props }) => (
-                                            <img
-                                                {...props}
-                                                style={{
-                                                    maxWidth: '100%',
-                                                    borderRadius: '8px',
-                                                    marginTop: '1rem',
-                                                    marginBottom: '1rem'
-                                                }}
-                                            />
-                                        )
-                                    }}
-                                >
-                                    {entry.content}
-                                </ReactMarkdown>
-                            </div>
+                                opacity: 0.7,
+                                marginBottom: '1.5rem'
+                            }}>
+                                {entry.content.length > 30
+                                    ? entry.content.substring(0, 30) + '...'
+                                    : entry.content}
+                            </p>
+
+                            <button
+                                onClick={() => onView(entry)}
+                                style={{
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    gap: '0.5rem',
+                                    backgroundColor: 'transparent',
+                                    border: '1px solid var(--border-color)',
+                                    color: 'var(--text-color)',
+                                    padding: '0.5rem 1.2rem',
+                                    borderRadius: '20px',
+                                    fontSize: '0.9rem',
+                                    fontWeight: '600',
+                                    cursor: 'pointer',
+                                    transition: 'all 0.2s'
+                                }}
+                                onMouseOver={(e) => {
+                                    e.currentTarget.style.backgroundColor = 'var(--border-color)';
+                                }}
+                                onMouseOut={(e) => {
+                                    e.currentTarget.style.backgroundColor = 'transparent';
+                                }}
+                            >
+                                <Eye size={16} /> View Entry
+                            </button>
                         </article>
                     ))
                 )}
