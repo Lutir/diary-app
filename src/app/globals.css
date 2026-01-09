@@ -1,27 +1,39 @@
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Pastel Palette */
+  --bg-color: #fdfcf8; /* Warm off-white */
+  --text-color: #4a4a4a; /* Soft charcoal */
+  --primary-pastel: #b8e0d2; /* Mint */
+  --secondary-pastel: #d6cdea; /* Lavender */
+  --accent-pastel: #ffdac1; /* Peach/Blush */
+  --error-color: #ffb7b2; /* Pastel Red */
+  
+  /* UI Elements */
+  --card-bg: #ffffff;
+  --border-color: #f0f0f0;
+  --shadow-sm: 0 2px 4px rgba(0,0,0,0.02);
+  --shadow-md: 0 4px 12px rgba(0,0,0,0.05);
+  
+  /* Typography */
+  --font-sans: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-serif: 'Merriweather', serif;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+[data-theme='dark'] {
+  --bg-color: #1a1b1e;
+  --text-color: #e0e0e0;
+  --card-bg: #25262b;
+  --border-color: #2c2e33;
+  --primary-pastel: #4a7a6a; /* Muted Mint */
+  --secondary-pastel: #6a5a8a; /* Muted Lavender */
+  --accent-pastel: #8a5a44; /* Muted Peach */
+  --error-color: #cf6679;
+  --shadow-sm: 0 2px 4px rgba(0,0,0,0.2);
+  --shadow-md: 0 4px 12px rgba(0,0,0,0.4);
 }
 
-html,
-body {
-  max-width: 100vw;
-  overflow-x: hidden;
-}
-
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 * {
@@ -30,13 +42,29 @@ body {
   margin: 0;
 }
 
-a {
-  color: inherit;
-  text-decoration: none;
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  font-family: var(--font-sans);
+  line-height: 1.6;
+  min-height: 100vh;
 }
 
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
-  }
+button {
+  cursor: pointer;
+  border: none;
+  font-family: inherit;
+}
+
+input, textarea {
+  font-family: inherit;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 0.75rem;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+input:focus, textarea:focus {
+  border-color: var(--secondary-pastel);
 }
