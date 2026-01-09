@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { Lock } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 
 interface LockScreenProps {
     onUnlock: (password: string) => void;
@@ -24,73 +24,76 @@ export default function LockScreen({ onUnlock, error }: LockScreenProps) {
             justifyContent: 'center',
             height: '100vh',
             backgroundColor: 'var(--bg-color)',
-            padding: '1rem'
+            transition: 'background-color 0.3s ease',
+            animation: 'fadeIn 0.8s ease-out'
         }}>
-            <div style={{
-                backgroundColor: 'var(--card-bg)',
-                padding: '2.5rem',
-                borderRadius: '24px',
-                boxShadow: 'var(--shadow-md)',
-                width: '100%',
-                maxWidth: '400px',
-                textAlign: 'center'
-            }}>
-                <div style={{
-                    backgroundColor: 'var(--primary-pastel)',
-                    width: '64px',
-                    height: '64px',
-                    borderRadius: '50%',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    margin: '0 auto 1.5rem auto',
-                    color: '#fff'
-                }}>
-                    <Lock size={32} />
-                </div>
+            <form
+                onSubmit={handleSubmit}
+                style={{
+                    width: '100%',
+                    maxWidth: '320px',
+                    position: 'relative'
+                }}
+            >
+                <input
+                    type="password"
+                    placeholder="Enter access code"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    style={{
+                        width: '100%',
+                        padding: '1rem 1.5rem',
+                        fontSize: '1.1rem',
+                        backgroundColor: 'transparent',
+                        border: 'none',
+                        borderBottom: '2px solid var(--border-color)',
+                        borderRadius: '0',
+                        outline: 'none',
+                        textAlign: 'center',
+                        color: 'var(--text-color)',
+                        transition: 'border-color 0.3s ease',
+                        fontFamily: 'var(--font-sans)',
+                        letterSpacing: '2px'
+                    }}
+                    autoFocus
+                />
 
-                <h1 style={{ marginBottom: '0.5rem', color: 'var(--text-color)' }}>My Secret Diary</h1>
-                <p style={{ marginBottom: '2rem', color: '#888', fontSize: '0.9rem' }}>
-                    Please enter the password to access.
-                </p>
+                <button
+                    type="submit"
+                    style={{
+                        position: 'absolute',
+                        right: '0',
+                        top: '50%',
+                        transform: 'translateY(-50%)',
+                        background: 'none',
+                        border: 'none',
+                        color: 'var(--text-color)',
+                        opacity: password ? 1 : 0,
+                        cursor: password ? 'pointer' : 'default',
+                        transition: 'opacity 0.3s ease',
+                        padding: '0.5rem'
+                    }}
+                    disabled={!password}
+                >
+                    <ArrowRight size={20} />
+                </button>
 
-                <form onSubmit={handleSubmit}>
-                    <input
-                        type="password"
-                        placeholder="Password"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                        style={{
-                            width: '100%',
-                            marginBottom: '1rem',
-                            fontSize: '1rem'
-                        }}
-                        autoFocus
-                    />
-
-                    {error && (
-                        <p style={{ color: 'var(--error-color)', marginBottom: '1rem', fontSize: '0.9rem' }}>
-                            {error}
-                        </p>
-                    )}
-
-                    <button
-                        type="submit"
-                        style={{
-                            width: '100%',
-                            padding: '0.8rem',
-                            backgroundColor: 'var(--secondary-pastel)',
-                            color: '#5a4a75',
-                            fontWeight: '600',
-                            borderRadius: '8px',
-                            fontSize: '1rem',
-                            transition: 'opacity 0.2s'
-                        }}
-                    >
-                        Unlock
-                    </button>
-                </form>
-            </div>
+                {error && (
+                    <div style={{
+                        position: 'absolute',
+                        top: '100%',
+                        left: '0',
+                        width: '100%',
+                        textAlign: 'center',
+                        marginTop: '1rem',
+                        color: 'var(--error-color)',
+                        fontSize: '0.85rem',
+                        animation: 'fadeIn 0.3s ease'
+                    }}>
+                        {error}
+                    </div>
+                )}
+            </form>
         </div>
     );
 }
